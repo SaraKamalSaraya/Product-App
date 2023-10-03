@@ -1,23 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
 
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './style.css';
+
+import { BrowserRouter } from 'react-router-dom';
+import Router from './Router/Router';
+import NavBar from './Components/Nav Bar/NavBar';
+import ProductDetails from './Components/ProductDetails/ProductDetails';
+import { useState } from 'react';
+import { LanguageContext } from './Context/Language';
+import { ThemeContext } from './Context/Theme';
+
 function App() {
+  const [contextLang, setContextLang] = useState('en')
+  const [contextTheme, setContextTheme] = useState('light')
+
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <div className={contextLang == 'ar' ? 'text-right' : 'text-left'} dir={contextLang == 'ar' ? 'rtl' : 'ltr'}>
+          <LanguageContext.Provider value={{ contextLang, setContextLang}}>
+            <div className={contextTheme == 'light' ? 'bg-light' : 'bg-dark'}>
+            <ThemeContext.Provider value={{ contextTheme, setContextTheme }}>
+              <NavBar />
+              <Router />
+            </ThemeContext.Provider>
+            </div>
+          </LanguageContext.Provider>
+        </div>
+      </BrowserRouter>
+      {/* <ProductDetails /> */}
     </div>
   );
 }

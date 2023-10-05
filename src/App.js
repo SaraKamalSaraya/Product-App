@@ -31,7 +31,6 @@ function App() {
           </LanguageContext.Provider>
         </div>
       </BrowserRouter>
-      {/* <ProductDetails /> */}
     </div>
   );
 }
